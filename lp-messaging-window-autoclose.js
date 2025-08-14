@@ -9,7 +9,7 @@ let conversationStates = {
 };
 
 // just a list of our bot names
-const BOT_AGENTS = ['MessagingRoutingBotLA', 'Survey Bot'];
+const BOT_AGENTS = ['Viking Virtual Agent', 'Survey Bot'];
 
 // quick check if agent is a bot
 function isBot(agentName) {
@@ -35,7 +35,7 @@ lpTag.events.bind({
             conversationStates.currentAgentName = data.agentName;
             conversationStates.currentAgentId = data.agentId;
 
-            if (data.agentName === 'MessagingRoutingBotLA' && !conversationStates.transferredToHuman) {
+            if (data.agentName === 'Viking Virtual Agent' && !conversationStates.transferredToHuman) {
                 conversationStates.startedWithBot = true;
             }
             else if (!isBot(data.agentName) && conversationStates.startedWithBot) {
