@@ -48,13 +48,16 @@ lpTag.events.bind({
     }
 });
 
-// watch for state changes in the chat
+// watch for state changes in the chat, includes an "else" if bot closes convo due to unavailable agents
 lpTag.events.bind({
     eventName: "state",
     appName: "lpUnifiedWindow",
     func: function(data) {
         if (data.state === "ended" && conversationStates.transferredToSurveyBot) {
             conversationStates.surveyEnded = true;
+            handleChatClose();
+        }
+          else if (data.state === "ended" && !conversationStates.transferredToSurveyBot) {
             handleChatClose();
         }
     }
@@ -74,7 +77,7 @@ function getConversationFlow() {
 // make the helper available globally
 window.checkConversationFlow = getConversationFlow;
 
-// invoke the above code and close window after 5 sec
+// invoke the above code and close window after 15 sec
 function handleChatClose() {
     console.log('wait 15 seconds before closing the chat window...');
     setTimeout(() => {
